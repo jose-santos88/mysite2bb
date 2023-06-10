@@ -1,10 +1,10 @@
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { app } from "./FirebaseConfig";
 
 const auth = getAuth(app);
 
  export async function login(email, senha) {
-  return await signInWithEmailAndPassword(auth, email, senha)
+  return await createUserWithEmailAndPassword(auth, email, senha)
     .then((userCredential) => userCredential.user.uid)
     .catch((error) => {
       if (error.code == "auth/wrong-password") {
