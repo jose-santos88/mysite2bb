@@ -7,7 +7,7 @@ export async function listaTarefas() {
   .then((response) => response.json())
     .then((data) => {
         for(let key in data) {
-            tarefas.push({key, ...data[key]})
+            tarefas.push({ key, ...data[key]})
         }    
     })
     .catch((error) => { throw Error("Deu ruim") })
