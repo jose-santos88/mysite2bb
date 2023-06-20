@@ -1,12 +1,15 @@
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { modificaTarefa } from '../services/TaskService'
+import TaskContext from '../contexts/TaskContext'
 
 export default function EditarForm() {
-  const { register, handleSubmit } = useForm()
   const navigate = useNavigate()
   const { key } = useParams()
-
+  const { tarefas, modificaTarefa} = useContext(TaskContext)
+  const tarefa = tarefas.find((item) => item.key == key)
+  const { register, handleSubmit } = useForm()
+   
   async function onSubmit(data) {
     try {
     await modificaTarefa(data)
@@ -22,7 +25,7 @@ export default function EditarForm() {
       <input type="hidden" {...register("key")} value={key}/>
       <div>
         <label>Nome da Tarefa</label>
-        <input type="text" {...register("nome")}/>
+        <input type="text" {...register("nome")} defaultValue={tarefa.prioridade}/>
       </div>
       <div>
         <label>Prioridade</label>
